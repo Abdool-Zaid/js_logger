@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>time logger</title>
+</head>
+<body>
+    <button id="init">start clock</button>
+    <button id="pause">pause clock</button>
+    <button id="res">get logs</button>
+</body>
+<script>
+    let start= false
+    let pause = false 
+    let init = document.querySelector("#init")
+    let ps = document.querySelector("#pause")
+    let fin = document.querySelector("#res")
+
+    init.addEventListener('click',()=>{
+        if (start == false){
+            init.innerHTML="stop clock"
+        }else{
+            init.innerHTML="start clock"    
+        }
+        start=!start
+
+    })
+
+
+</script>
+</html>
