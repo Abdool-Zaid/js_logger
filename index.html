@@ -11,22 +11,51 @@
     <button id="res">get logs</button>
 </body>
 <script>
-    let start= false
-    let pause = false 
+    let init_val= false
+    let pause_val = false 
+    let time = []
+    let report
     let init = document.querySelector("#init")
-    let ps = document.querySelector("#pause")
+    let pause = document.querySelector("#pause")
     let fin = document.querySelector("#res")
 
-    init.addEventListener('click',()=>{
-        if (start == false){
-            init.innerHTML="stop clock"
-        }else{
-            init.innerHTML="start clock"    
-        }
-        start=!start
+window.addEventListener('click',(e)=>{
 
-    })
+    if(e.target.id != false){
+        console.log(e.target.id)
+    }else{
+        console.log("miss")
+    }
 
+})
+
+
+//     init.addEventListener('click',(e)=>{
+//         let cur = Date.now()
+//         if (start == false){
+//             init.innerHTML="stop clock"
+//         }else{
+//             init.innerHTML="start clock"    
+//         }
+//         start=!start
+
+//     })
+
+//     ps.addEventListener('click',()=>{
+//         if (pause==false){
+//             ps.innerHTML="resume clock"
+//         }else{
+//             ps.innerHTML="pause clock"
+//         }
+//         pause= !pause
+//     })
+    
+//     fin.addEventListener('click',()=>{
+//         navigator.clipboard
+//   .writeText("Text")
+//   .then(() => alert('logs copied to clipboard'))
+//   .catch((err) => console.log(err))
+//     })
 
 </script>
 </html>
