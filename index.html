@@ -32,20 +32,23 @@
         res.func=(self)=>{console.log(self.val)}
         let time = []
         let report
-        
-        // btn = document.querySelectorAll('button')
-        // btn.forEach(element => {
-            //     let val 
-            //     eval(`val = window.localStorage.${element.id}`)
-            //     if (val){
-                //         if (val == true){
-                    //             let obj
-                    //             eval(`obj= ${element.id}`)
-                    //             // element.innerHTML=obj.text[1]
-                    //             console.log(obj.text[1])
-                    //         }        
-                    //     }
-                    // });
+        btn = document.querySelectorAll('button')
+        btn.forEach(element => {
+            let val 
+            try {
+                
+                eval(`val = JSON.parse(window.localStorage.${element.id})`)
+            } catch (error) {
+                console.error(error)
+            }
+            if (val){
+                if (val == true){
+                    let obj
+                                eval(`obj= ${element.id}`)
+                                element.innerHTML=obj.text[0]
+                            }        
+                        }
+                    });
                     
                     window.addEventListener('click',(e)=>{
                         if(e.target.id != false){
