@@ -11,45 +11,41 @@
     <button id="res">get logs</button>
 </body>
 <script>
-    let init_val= false
-    let pause_val = false 
+    let init={}
+        init.val=false
+        init.corpus= document.querySelector("#init")
+        init.text=['start clock','stop clock']
+    let pause ={}
+        pause.val = false
+        pause.corpus= document.querySelector("#pause")
+        pause.text= ['pause clock', 'resume clock']
+    let res = {}
+        res.val= false
+        res.corpus= document.querySelector('#res')
+        res.text=[eval('console.log("fred"); res.corpus.innerHTML="get logs"'), 'get logs']
     let time = []
     let report
-    let init = document.querySelector("#init")
-    let pause = document.querySelector("#pause")
-    let fin = document.querySelector("#res")
+   
 
 window.addEventListener('click',(e)=>{
-
     if(e.target.id != false){
-        console.log(e.target.id)
+        let obj 
+        // console.log(e.target.id)
+        eval(`obj= ${e.target.id}`)
+        if (obj.val==false){
+            obj.corpus.innerHTML= obj.text[0]
+        }else{
+            obj.corpus.innerHTML= obj.text[1]
+        }
+        obj.val= !obj.val
+
     }else{
         console.log("miss")
     }
-
 })
 
 
-//     init.addEventListener('click',(e)=>{
-//         let cur = Date.now()
-//         if (start == false){
-//             init.innerHTML="stop clock"
-//         }else{
-//             init.innerHTML="start clock"    
-//         }
-//         start=!start
 
-//     })
-
-//     ps.addEventListener('click',()=>{
-//         if (pause==false){
-//             ps.innerHTML="resume clock"
-//         }else{
-//             ps.innerHTML="pause clock"
-//         }
-//         pause= !pause
-//     })
-    
 //     fin.addEventListener('click',()=>{
 //         navigator.clipboard
 //   .writeText("Text")
