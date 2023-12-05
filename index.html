@@ -6,43 +6,67 @@
     <title>time logger</title>
 </head>
 <body>
-    <button id="init">start clock</button>
-    <button id="pause">pause clock</button>
+    <button id="init">start</button>
+    <button id="pause">pause</button>
     <button id="res">get logs</button>
 </body>
 <script>
     let init={}
-        init.val=false
+        init.val=window.localStorage.init? JSON.parse(window.localStorage.init) : false
         init.corpus= document.querySelector("#init")
-        init.text=['start clock','stop clock']
-    let pause ={}
-        pause.val = false
-        pause.corpus= document.querySelector("#pause")
-        pause.text= ['pause clock', 'resume clock']
-    let res = {}
-        res.val= false
-        res.corpus= document.querySelector('#res')
-        res.text=[eval('console.log("fred"); res.corpus.innerHTML="get logs"'), 'get logs']
-    let time = []
-    let report
-   
-
-window.addEventListener('click',(e)=>{
-    if(e.target.id != false){
-        let obj 
-        // console.log(e.target.id)
-        eval(`obj= ${e.target.id}`)
-        if (obj.val==false){
-            obj.corpus.innerHTML= obj.text[0]
-        }else{
-            obj.corpus.innerHTML= obj.text[1]
+        init.text=['stop','start']
+        init.func= (self)=>{
+           time.push([self.corpus.innerHTML,self.time])
         }
-        obj.val= !obj.val
-
-    }else{
-        console.log("miss")
-    }
-})
+        let pause ={}
+        pause.val = window.localStorage.pause? JSON.parse(window.localStorage.pause) : false
+        pause.corpus= document.querySelector("#pause")
+        pause.text= ['resume', 'pause']
+        pause.func=(self)=>{
+            time.push([self.corpus.innerHTML,self.time])
+        }
+        let res = {}
+        res.val= window.localStorage.res? JSON.parse(window.localStorage.res) : false
+        res.corpus= document.querySelector('#res')
+        res.text=[ 'get logs', 'get logs']
+        res.func=(self)=>{console.log(self.val)}
+        let time = []
+        let report
+        
+        // btn = document.querySelectorAll('button')
+        // btn.forEach(element => {
+            //     let val 
+            //     eval(`val = window.localStorage.${element.id}`)
+            //     if (val){
+                //         if (val == true){
+                    //             let obj
+                    //             eval(`obj= ${element.id}`)
+                    //             // element.innerHTML=obj.text[1]
+                    //             console.log(obj.text[1])
+                    //         }        
+                    //     }
+                    // });
+                    
+                    window.addEventListener('click',(e)=>{
+                        if(e.target.id != false){
+                            let obj 
+                            eval(`obj= ${e.target.id}`)
+                            obj.time= Date.now()
+                            
+                            obj.func(obj)
+                            if (obj.val==false){
+                                obj.corpus.innerHTML= obj.text[0]
+                            }else{
+                                obj.corpus.innerHTML= obj.text[1]
+                            }
+                            obj.val= !obj.val
+                            window.localStorage.setItem(e.target.id,JSON.stringify(obj.val))
+                            
+                            console.table(time)
+                        }else{
+                            console.log("miss")
+                        }
+                    })
 
 
 
