@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="a simple time logger for capturing the elapse time spent working in a day made by aspiring developer Abdool Zaid Toorabally email: aztoorabally7447@gmail.com">
     <title>time logger</title>
+    <style>.rem{
+                display: none;
+                }
+    </style>
 </head>
 <body>
     <button id="init">start</button>
@@ -18,6 +22,7 @@
         init.text=['stop','start']
         init.func= (self)=>{
            time.push([self.corpus.innerHTML,self.time])
+                  pause.corpus.classList.toggle('rem')
         }
         let pause ={}
         pause.val = window.localStorage.pause? JSON.parse(window.localStorage.pause) : false
@@ -25,13 +30,30 @@
         pause.text= ['resume', 'pause']
         pause.func=(self)=>{
             time.push([self.corpus.innerHTML,self.time])
+            localStorage.setItem("time", JSON.stringify(time))
         }
         let res = {}
         res.val= window.localStorage.res? JSON.parse(window.localStorage.res) : false
         res.corpus= document.querySelector('#res')
         res.text=[ 'get logs', 'get logs']
-        res.func=(self)=>{console.log(self.val)}
-        let time = []
+        res.func=(self)=>{
+                let rep ='report \n'               
+                            time.forEach((log)=>{
+                                const date = new Date(log[1]);
+                                const formattedDate = date.toLocaleString();
+                                console.log(`${log[0]} : ${formattedDate} \n`)
+                                rep += `${log[0]} : ${formattedDate} \n`
+
+                            })
+                            console.log(rep)
+                      
+                            navigator.clipboard
+                              .writeText(rep)
+                              .then(() => alert('logs copied to clipboard'))
+                              .catch((err) => console.log(err))
+                            
+                        }
+        let time = localStorage.time? JSON.parse(localStorage.time): []
         let report
         btn = document.querySelectorAll('button')
         btn.forEach(element => {
@@ -39,6 +61,10 @@
             try {
                 
                 eval(`val = JSON.parse(window.localStorage.${element.id})`)
+                console.log(element.innerHTML)
+                if(element.innerHTML=="start"){
+                    pause.corpus.classList.toggle('rem')
+                }
             } catch (error) {
                 console.error(error)
             }
@@ -66,19 +92,14 @@
                             obj.val= !obj.val
                             window.localStorage.setItem(e.target.id,JSON.stringify(obj.val))
                             
-                            console.table(time)
                         }else{
-                            console.log("miss")
                         }
                     })
 
 
 
 //     fin.addEventListener('click',()=>{
-//         navigator.clipboard
-//   .writeText("Text")
-//   .then(() => alert('logs copied to clipboard'))
-//   .catch((err) => console.log(err))
+//        
 //     })
 
 </script>
