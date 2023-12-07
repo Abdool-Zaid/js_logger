@@ -41,16 +41,21 @@
                             time.forEach((log)=>{
                                 const date = new Date(log[1]);
                                 const formattedDate = date.toLocaleString();
-                                console.log(`${log[0]} : ${formattedDate} \n`)
                                 rep += `${log[0]} : ${formattedDate} \n`
 
                             })
-                            console.log(rep)
-                      
+                            let start= time.at(0)[1]
+                            let end = time.at(-1)[1]
+                            console.log(start)
+                            console.log(end)
+                            let elapsed = end - start
+                            elapsed = elapsed.toLocaleString()
+                            rep += `elapsed time : ${elapsed}`
+                            console.log(elapsed)
                             navigator.clipboard
                               .writeText(rep)
                               .then(() => alert('logs copied to clipboard'))
-                              .catch((err) => console.log(err))
+                        localStorage.clear()
                             
                         }
         let time = localStorage.time? JSON.parse(localStorage.time): []
@@ -61,12 +66,10 @@
             try {
                 
                 eval(`val = JSON.parse(window.localStorage.${element.id})`)
-                console.log(element.innerHTML)
                 if(element.innerHTML=="start"){
                     pause.corpus.classList.toggle('rem')
                 }
             } catch (error) {
-                console.error(error)
             }
             if (val){
                 if (val == true){
