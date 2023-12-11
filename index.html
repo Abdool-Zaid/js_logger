@@ -5,10 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="a simple time logger for capturing the elapse time spent working in a day made by aspiring developer Abdool Zaid Toorabally email: aztoorabally7447@gmail.com">
         <title>time logger</title>
-        <style>.rem{
-                    display: none;
-                    }
-        </style>
+        
     </head>
     <body>
         <button id="init">start</button>
@@ -122,15 +119,10 @@ function formatElapsedTime(milliseconds) {
                                 obj.val= !obj.val
                                 window.localStorage.setItem(e.target.id,JSON.stringify(obj.val))
                                 
-                            }else{
                             }
                         })
 
 
-
-    //     fin.addEventListener('click',()=>{
-    //        
-    //     })
 
     </script>
     </html>
